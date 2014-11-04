@@ -1,6 +1,18 @@
 require 'rails_helper'
 
+
 describe 'restaurants' do
+	
+before do 
+		visit '/'
+		click_link('Sign up')
+		fill_in("Email", with: 'test@example.com')
+		fill_in("Password", with: 'testtest')
+		fill_in("Password confirmation", with: 'testtest')
+		click_button('Sign up')
+	end
+
+
 	context 'no restaurants have been added' do
 		it 'should display a prompt to add a restaurant' do
 			visit '/restaurants'
@@ -54,6 +66,16 @@ describe 'restaurants' do
 end
 
 describe 'creating restaurants' do
+
+	before do 
+		visit '/'
+		click_link('Sign up')
+		fill_in("Email", with: 'test@example.com')
+		fill_in("Password", with: 'testtest')
+		fill_in("Password confirmation", with: 'testtest')
+		click_button('Sign up')
+	end
+
 	it 'prompts user to fill out a form, then displays a new restaurant' do
 		visit '/restaurants'
 		click_link 'Add a restaurant'
@@ -81,6 +103,15 @@ end
 
 describe 'creating restaurants' do
 
+	before do 
+		visit '/'
+		click_link('Sign up')
+		fill_in("Email", with: 'test@example.com')
+		fill_in("Password", with: 'testtest')
+		fill_in("Password confirmation", with: 'testtest')
+		click_button('Sign up')
+	end
+
 	context 'an invalid restaurant' do
 		it 'does not let you submit a name that is blank' do
 			visit '/restaurants'
@@ -99,7 +130,14 @@ describe 'creating restaurants' do
   end
 end
 
-
+# def sign_up
+# 	visit '/'
+# 		click_link('Sign up')
+# 		fill_in("Email", with: 'test@example.com')
+# 		fill_in("Password", with: 'testtest')
+# 		fill_in("Password confirmation", with: 'testtest')
+# 		click_button('Sign up')
+# 	end
 
 
 
