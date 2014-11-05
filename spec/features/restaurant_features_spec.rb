@@ -1,20 +1,11 @@
 require 'rails_helper'
 
-
 describe 'restaurants' do
-	
-before do 
-		visit '/'
-		click_link('Sign up')
-		fill_in("Email", with: 'test@example.com')
-		fill_in("Password", with: 'testtest')
-		fill_in("Password confirmation", with: 'testtest')
-		click_button('Sign up')
-	end
 
 
 	context 'no restaurants have been added' do
 		it 'should display a prompt to add a restaurant' do
+			sign_up
 			visit '/restaurants'
 			expect(page).to have_content "No restaurants"
 			expect(page).to have_link "Add a restaurant"
@@ -27,6 +18,7 @@ before do
 		end
 
 		it 'should display restaurants' do 
+			sign_up
 			visit '/restaurants'
 			expect(page).to have_content('KFC')
 			expect(page).not_to have_content('No restaurants')
@@ -39,6 +31,7 @@ before do
 		end
 
 		it "lets a user view restaurant" do 
+			sign_up
 			visit '/restaurants'
 			click_link 'KFC'
 			expect(page).to have_content "KFC"
@@ -53,6 +46,7 @@ before do
 		end
 
 	it 'lets a user edit the restaurant' do
+		sign_up
 		visit '/restaurants'
 		click_link 'Edit KFC'
 		fill_in 'Name', with: 'Kentucky Fried Chicken'
@@ -67,16 +61,8 @@ end
 
 describe 'creating restaurants' do
 
-	before do 
-		visit '/'
-		click_link('Sign up')
-		fill_in("Email", with: 'test@example.com')
-		fill_in("Password", with: 'testtest')
-		fill_in("Password confirmation", with: 'testtest')
-		click_button('Sign up')
-	end
-
 	it 'prompts user to fill out a form, then displays a new restaurant' do
+		sign_up
 		visit '/restaurants'
 		click_link 'Add a restaurant'
 		fill_in 'Name', with: 'KFC'
@@ -93,6 +79,7 @@ describe 'deleting restaurants' do
 	end
 
 		it "Remove a restaurant when a user clicks a delete link" do 
+			sign_up
 			visit "/restaurants" 
 			click_link 'Delete KFC'
 			expect(page).not_to have_content "KFC"
@@ -103,17 +90,9 @@ end
 
 describe 'creating restaurants' do
 
-	before do 
-		visit '/'
-		click_link('Sign up')
-		fill_in("Email", with: 'test@example.com')
-		fill_in("Password", with: 'testtest')
-		fill_in("Password confirmation", with: 'testtest')
-		click_button('Sign up')
-	end
-
 	context 'an invalid restaurant' do
 		it 'does not let you submit a name that is blank' do
+			sign_up
 			visit '/restaurants'
       click_link 'Add a restaurant'
       fill_in 'Name', with: ''
@@ -128,16 +107,29 @@ describe 'creating restaurants' do
 		end
 
   end
+
+  describe 'Editing restaurants' do 
+  	it "Should let users edit a restaurant they have created" do 
+  		sign_up
+  		visit '/restaurants'
+      click_link 'Add a restaurant'
+      fill_in "Name", with: 'Test'
+      click_button 'Create Restaurant'
+      expect(page).to have_content "Edit Test"
+    end
+
+    # it "Shoudn't let users edit a restraunt they havent created" do
+    # 	Restaurant.create(name: "Test")
+    # 	visit "/"
+    # 	expect(page).not_to have_content "Edit Test"
+    # end
+
+  end
+
+
+
 end
 
-# def sign_up
-# 	visit '/'
-# 		click_link('Sign up')
-# 		fill_in("Email", with: 'test@example.com')
-# 		fill_in("Password", with: 'testtest')
-# 		fill_in("Password confirmation", with: 'testtest')
-# 		click_button('Sign up')
-# 	end
 
 
 
