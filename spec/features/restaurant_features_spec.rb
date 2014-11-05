@@ -41,13 +41,15 @@ describe 'restaurants' do
 	end
 
 	context 'editing restaurants' do
-		before do
-			Restaurant.create(name:'KFC')
-		end
+	
 
 	it 'lets a user edit the restaurant' do
 		sign_up
-		visit '/restaurants'
+		click_link 'Add a restaurant'
+		fill_in 'Name', with: 'KFC'
+		fill_in 'Description', with: 'Bucket food.'
+		click_button 'Create Restaurant'
+
 		click_link 'Edit KFC'
 		fill_in 'Name', with: 'Kentucky Fried Chicken'
 		fill_in 'Description', with: 'Bucket food.'
@@ -74,13 +76,12 @@ describe 'creating restaurants' do
 
 describe 'deleting restaurants' do
 
-	before do 
-		Restaurant.create(name: "KFC")
-	end
-
 		it "Remove a restaurant when a user clicks a delete link" do 
 			sign_up
-			visit "/restaurants" 
+			click_link 'Add a restaurant'
+			fill_in 'Name', with: 'KFC'
+			fill_in 'Description', with: 'Bucket food.'
+			click_button 'Create Restaurant'
 			click_link 'Delete KFC'
 			expect(page).not_to have_content "KFC"
 			expect(page).to have_content "Restaurant deleted successfully"
@@ -118,11 +119,11 @@ describe 'creating restaurants' do
       expect(page).to have_content "Edit Test"
     end
 
-    # it "Shoudn't let users edit a restraunt they havent created" do
-    # 	Restaurant.create(name: "Test")
-    # 	visit "/"
-    # 	expect(page).not_to have_content "Edit Test"
-    # end
+    it "Shoudn't let users edit a restraunt they havent created" do
+    	Restaurant.create(name: "Test")
+    	sign_up
+    	expect(page).not_to have_content "Edit Test"
+    end
 
   end
 

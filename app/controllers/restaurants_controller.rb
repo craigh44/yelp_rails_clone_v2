@@ -7,16 +7,22 @@ class RestaurantsController < ApplicationController
 	end
 
 	def new
-		@restaurant = Restaurant.new
+		if user_signed_in? 
+			@restaurant = Restaurant.new
+		else
+			flash[:notice] 
+			redirect_to '/'
+		end
 	end
 
 	def create
-		@restaurant = Restaurant.create(params[:restaurant].permit(:name, :description))
+		@user = User.find(current_user)
+		@restaurant = @user.restaurants.new(params[:restaurant].permit(:name))
 		if @restaurant.save
-    	redirect_to restaurants_path
-  	else
-    	render 'new'
-  	end
+			redirect_to '/restaurants'
+		else
+			render 'new'
+		end
 	end
 
 	def show
