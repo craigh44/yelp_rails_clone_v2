@@ -45,11 +45,7 @@ describe 'restaurants' do
 
 	it 'lets a user edit the restaurant' do
 		sign_up
-		click_link 'Add a restaurant'
-		fill_in 'Name', with: 'KFC'
-		fill_in 'Description', with: 'Bucket food.'
-		click_button 'Create Restaurant'
-
+		add_restaurant
 		click_link 'Edit KFC'
 		fill_in 'Name', with: 'Kentucky Fried Chicken'
 		fill_in 'Description', with: 'Bucket food.'
@@ -66,22 +62,16 @@ describe 'creating restaurants' do
 	it 'prompts user to fill out a form, then displays a new restaurant' do
 		sign_up
 		visit '/restaurants'
-		click_link 'Add a restaurant'
-		fill_in 'Name', with: 'KFC'
-		fill_in 'Description', with: 'Bucket food.'
-		click_button 'Create Restaurant'
+		add_restaurant
 		expect(page).to have_content 'KFC'
 		expect(current_path).to eq '/restaurants'
 	end
 
 describe 'deleting restaurants' do
-
+	
 		it "Remove a restaurant when a user clicks a delete link" do 
 			sign_up
-			click_link 'Add a restaurant'
-			fill_in 'Name', with: 'KFC'
-			fill_in 'Description', with: 'Bucket food.'
-			click_button 'Create Restaurant'
+			add_restaurant
 			click_link 'Delete KFC'
 			expect(page).not_to have_content "KFC"
 			expect(page).to have_content "Restaurant deleted successfully"
@@ -112,11 +102,8 @@ describe 'creating restaurants' do
   describe 'Editing restaurants' do 
   	it "Should let users edit a restaurant they have created" do 
   		sign_up
-  		visit '/restaurants'
-      click_link 'Add a restaurant'
-      fill_in "Name", with: 'Test'
-      click_button 'Create Restaurant'
-      expect(page).to have_content "Edit Test"
+  		add_restaurant
+      expect(page).to have_content "Edit KFC"
     end
 
     it "Shoudn't let users edit a restraunt they havent created" do
@@ -124,13 +111,8 @@ describe 'creating restaurants' do
     	sign_up
     	expect(page).not_to have_content "Edit Test"
     end
-
   end
-
-
-
 end
-
 
 
 
