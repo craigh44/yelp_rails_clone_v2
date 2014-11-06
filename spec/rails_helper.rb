@@ -4,24 +4,8 @@ require 'spec_helper'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
-
 require 'capybara/rails'
-
-def sign_up
-  visit '/'
-  click_link('Sign up')
-  fill_in("Email", with: 'test@example.com')
-  fill_in("Password", with: 'testtest')
-  fill_in("Password confirmation", with: 'testtest')
-  click_button('Sign up')
-end
-
-def add_restaurant
-  click_link 'Add a restaurant'
-  fill_in 'Name', with: 'KFC'
-  fill_in 'Description', with: 'Bucket food.'
-  click_button 'Create Restaurant'
-end
+require_relative 'helpers'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are

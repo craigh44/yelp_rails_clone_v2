@@ -1,12 +1,12 @@
 <h2><%= @restaurant.name %></h2>
 <p><%= @restaurant.description %></p>
-<h3>Reviews for <%= @restaurant.name %></h3>
+<h2>Reviews for <%= @restaurant.name %></h2>
 
 <% if @restaurant.reviews.any? %>
 	<ul>
 		<% @restaurant.reviews.each do |review| %>
 			<li>
-				<%= review.thoughts %>, <strong><%= review.rating %></strong>/5
+				<h4><%= review.thoughts %>: <%= review.rating %>/5</h4>
 			</li>
 		<% end %>
 	</ul>

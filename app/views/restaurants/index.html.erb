@@ -1,22 +1,28 @@
+<h2 id="add-restaurant"><a  href='restaurants/new'>Add a restaurant</a></h2>
 <% if @restaurants.any? %>
-	<% @restaurants.each do |restaurant| %>
+	<% @restaurants.reverse.each do |restaurant| %>
 		<h2><%= link_to "#{restaurant.name}", restaurant_path(restaurant) %></h2>
-	<ul>
+
 		<% if can? :update, restaurant %>
-		<li><%= link_to "Edit #{restaurant.name}", edit_restaurant_path(restaurant) %></li>
-		<li><%= link_to "Delete #{restaurant.name}", restaurant_path(restaurant), method: :delete %></li>
+	|| <%= link_to "Edit #{restaurant.name}", edit_restaurant_path(restaurant) %> ||
+		<%= link_to "Delete #{restaurant.name}", restaurant_path(restaurant), method: :delete %> ||
 		<% end %>
-		<li><%= link_to "Review #{restaurant.name}", new_restaurant_review_path(restaurant) %></li>
+		<% if user_signed_in? %>
+		<% unless restaurant.reviews.any?{|review|review.user_id == current_user.id} %>
+			<%= link_to "Review #{restaurant.name}", new_restaurant_review_path(restaurant) %>||
+		<% end %>
+		<% end %>
 		<h3>Reviews for <%= restaurant.name %></h3>
+		<h3>Average rating: <%= restaurant.average_rating.to_i %></h3>
 
 			<% if restaurant.reviews.any? %>
-				<ul>
-					<% restaurant.reviews.each do |review| %>
-						<li>
+					<% restaurant.reviews.each do |review| %></br>
+	
+					
 							<%= review.thoughts %>: <%= review.rating %>/5
-						</li>
+						
 					<% end %>
-				</ul>
+		
 			<% else %>
 				<p>No reviews.</p>
 			<% end %>
@@ -27,6 +33,4 @@
 		"No restaurants"
 	<% end %>
 		 	
-
-<a href='restaurants/new'>Add a restaurant</a>
 

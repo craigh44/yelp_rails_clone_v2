@@ -1,7 +1,7 @@
 <%= form_for @restaurant do |f| %>
-	<%= f.label :name %>
-	<%= f.text_field :name %><br/>
-	<%= f.label :description %>
-	<%= f.text_field :description %><br/>
+	<%= f.label :name, :autocomplete => :off %>
+	<%= f.text_field :name, :autocomplete => :off %><br/>
+	<%= f.label :description, :autocomplete => :off %>
+	<%= f.text_field :description, :autocomplete => :off %><br/>
 	<%= f.submit %>
 <% end %>

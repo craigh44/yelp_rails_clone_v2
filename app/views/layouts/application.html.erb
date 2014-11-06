@@ -1,24 +1,28 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>YelpCloneRails</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
+	<head>
+		<meta charset="UTF-8">
+	  <title>YelpCloneRails</title>
+	  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+	  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+	  <%= csrf_meta_tags %>
+	</head>
+
+	<section id="main">
 <body>
+	<nav id="nav-bar">
+		<a href="/">Home</a>
+			<% if user_signed_in? %>
+					<%= link_to "Sign out", destroy_user_session_path, method: :delete %>
 
-	<a href="/">Home</a>
+			<% else %>
+				<li><%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %></li>
 
-	<% if user_signed_in? %>
-	<%= link_to "Sign out", destroy_user_session_path, method: :delete %>
+				<li><%= link_to "Sign in", new_user_session_path %></li>
 
-	<% else %>
-	<%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %>
-		<%= link_to "Sign in", new_user_session_path %>
-		<%= link_to "Sign up", new_user_registration_path %>
-	<% end %>
-
+				<li><%= link_to "Sign up", new_user_registration_path %></li>
+			<% end %>
+	</nav>
 
 	<p class="notice"><%= notice %></p>
 	<p class="alert"><%= alert %></p>
@@ -26,4 +30,5 @@
 <%= yield %>
 
 </body>
+</section>
 </html>
