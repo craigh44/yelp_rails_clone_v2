@@ -16,10 +16,11 @@
 		<h3>Average rating: <%= restaurant.average_rating.to_i %></h3>
 
 			<% if restaurant.reviews.any? %>
-					<% restaurant.reviews.each do |review| %></br>
+					<% restaurant.reviews.each do |review| %><hr>
 	
 					
-							<%= review.thoughts %>: <%= review.rating %>/5
+							<%= review.thoughts %>: <%= star_rating(restaurant.average_rating) %><hr>
+							
 						
 					<% end %>
 		

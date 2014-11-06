@@ -13,11 +13,15 @@
  *= require_tree .
  *= require_self
  */
-#add-restaurant {
+#add-restaurant a {
+  color: white;
   text-align: center;
+  text-decoration: none;
+  background: black;
 }
 
 body {
+  text-align: center;
   width: 600px;
   margin: 0 auto;
   border-color: black;
